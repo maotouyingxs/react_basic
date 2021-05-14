@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>1_类的基本知识</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        //  1.创建一个 Person 类
+        class Person {
+            // 构造器方法
+            constructor(name, age) {
+                this.name = name;
+                this.age = age;
+            }
+            // 一般方法
+            speak(){
+                // speak 方法放在哪了  类的原型对象上
+                // speak 方法给谁用的  供实例使用
+                // 通过 Person 实例调用 speak 时 ，speak 中的 this 就是 Person 实例
+                console.log(`我叫${this.name}，我的年龄是${this.age}`);
+            }
+        }
+        // 创建一个 Person 的实例对象
+        // const p1 = new Person('tom', 18);
+        // const p2 = new Person('jerry', 20);
+        // p1.speak();
+        // p2.speak();
+        // console.log(p1);
+        // console.log(p2);
+
+        class Student extends Person{
+            constructor(name,age,grade){
+                super(name,age);
+                this.grade = grade;
+            }
+            speak(){
+                console.log(`我叫${this.name}，我的年龄是${this.age}，我的年级是${this.grade}`);
+            }
+        }
+
+        const s1 = new Student('小张',15,'高一');
+        s1.speak();
+    </script>
+
+</body>
+
+</html>
