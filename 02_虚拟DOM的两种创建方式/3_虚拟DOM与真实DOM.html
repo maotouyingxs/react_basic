@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>虚拟DOM与真实DOM</title>
+</head>
+
+<body>
+    <!--准备好一个容器-->
+    <div id="test"></div>
+    <div id="com"></div>
+    <!-- 引入react核心库 -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <!-- 引入react-dom ,用于支持react操作DOM-->
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <!-- 引入babel，用于将jsx转为js -->
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <script type="text/babel">
+        // 1.创建虚拟DOM
+        const VDOM = (
+            <h1 id="title">Hello,React</h1>
+        )
+        // 2.渲染虚拟DOM到页面
+        ReactDOM.render(VDOM, document.getElementById('test'));
+        const CDOM = document.getElementById('com')
+        console.log("虚拟DOM", VDOM);
+        console.log("真实DOM",CDOM);
+        debugger;
+    </script>
+</body>
+
+</html>
