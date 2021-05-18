@@ -24,8 +24,9 @@
                 ReactDOM.unmountComponentAtNode(document.getElementById('test'));
             }
 
-            action = ()=>{
-                setInterval(() => {
+            // 组件挂载在页面之后调用
+            componentDidMount() {
+                this.timer = setInterval(() => {
                     // 获取原状态
                     let { opacity } = this.state
                     opacity -= 0.1
@@ -33,13 +34,17 @@
                     this.setState({ opacity })
                 }, 200)
             }
-
+            // 组件将要卸载
+            componentWillUnmount() {
+                // 清楚定时器
+                clearInterval(this.timer)
+            }
+            // render 调用的时机：初始化渲染，状态更新之后
             render() {
                 return (
                     <div>
                         <h2 style={{ opacity: this.state.opacity }} ref={c => this.rh2 = c}>React学不会怎么办？</h2>
                         <button onClick={this.death}>不活了</button>
-                        <button onClick={this.action}>开始变化</button>
                     </div>
                 )
             }
