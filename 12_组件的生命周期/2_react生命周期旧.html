@@ -23,14 +23,18 @@
                 super(props)
                 this.state = { count: 0 }
             }
-
+            // 加一
             add = () => {
                 const { count } = this.state
                 this.setState({ count: count + 1 })
             }
-
+            // 卸载组件
             death = () => {
                 ReactDOM.unmountComponentAtNode(document.getElementById('test'))
+            }
+            // 强制更新
+            force = () => {
+                this.forceUpdate();
             }
 
             // 组件将要挂载的钩子
@@ -66,12 +70,60 @@
                         <h2>当前求和为{this.state.count}</h2>
                         <button onClick={this.add}>点我加1</button>
                         <button onClick={this.death}>卸载组件</button>
+                        <button onClick={this.force}>不更改状态中的数据，强制更新一下</button>
                     </div>
                 )
             }
         }
+
+        class A extends React.Component {
+            state = { carName: '奔驰' }
+            changeCar = () => {
+                this.setState({ carName: '宝马' })
+            }
+            render() {
+                return (
+                    <div>
+                        <div>我是A组件</div>
+                        <button onClick={this.changeCar}>换车</button>
+                        <B carName={this.state.carName} />
+                    </div>
+                )
+            }
+        }
+
+        class B extends React.Component {
+            // 组件将要接收新的props的钩子
+            componentWillReceiveProps(props) {
+                console.log('B-componentWillReceiveProps', props)
+            }
+            // 控制组件更新的阀门
+            shouldComponentUpdate() {
+                console.log('B-shouldComponentUpdate')
+                return true;
+            }
+            // 组件将要更新的钩子
+            componentWillUpdate() {
+                console.log('B-componentWillUpdate')
+            }
+            // 组件更新完毕的钩子
+            componentDidUpdate() {
+                console.log('B-componentDidUpdate')
+            }
+
+            render() {
+                console.log('B-render')
+                return (
+                    <div>
+                        我是B组件,我接收的车是:{this.props.carName}
+                    </div>
+                )
+            }
+        }
+
         // 渲染组件到页面
-        ReactDOM.render(<Count />, document.getElementById('test'))
+        // ReactDOM.render(<Count />, document.getElementById('test'))
+        ReactDOM.render(<A />, document.getElementById('test'))
     </script>
 
 </body>
