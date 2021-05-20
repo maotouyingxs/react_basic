@@ -40,17 +40,23 @@
             // 组件将要挂载的钩子
             static getDerivedStateFromProps(props, state) {
                 console.log('Count-getDerivedStateFromProps', props, state)
-                return props
+                return null
             }
+            // 更新之前获取快照
+            getSnapshotBeforeUpdate(prevProps, prevState) {
+                console.log('Count-getSnapshotBeforeUpdate')
+                return 'a'
+            }
+
             // 更新的阀门
             shouldComponentUpdate() {
                 console.log('Count-shouldComponentUpdate')
                 return true;
             }
 
-            // 组件更新完毕的钩子
-            componentDidUpdate() {
-                console.log('Count-componentDidUpdate')
+            // 组件更新完毕的钩子  prevProps 之前的props prevState 之前的状态 snapshotValue的值为快照值 a
+            componentDidUpdate(prevProps, prevState, snapshotValue) {
+                console.log('Count-componentDidUpdate', prevProps, prevState, snapshotValue)
             }
             // 组件挂载完毕的钩子
             componentDidMount() {
