@@ -28,8 +28,6 @@
             add = () => {
                 console.log("add")
                 const { persons } = this.state
-                // persons.push({ id: persons.length + 1, name: '小明', age: 20 })
-                // this.setState(persons)
                 const p = { id: persons.length + 1, name: '小明', age: 20 }
                 this.setState({ persons: [p, ...persons] })
             }
@@ -39,9 +37,18 @@
                     <div>
                         <h2>展示人员信息</h2>
                         <button onClick={this.add}>添加一个小明</button>
+                        <h3>使用index作为key</h3>
                         {
                             this.state.persons.map((personObj, index) => {
-                                return <li key={index}>{personObj.name}---{personObj.age}</li>
+                                return <li key={index}>{personObj.name}---{personObj.age} <input type="text" /></li>
+                            })
+                        }
+                        <hr/>
+                        <hr/>
+                        <h3>使用id作为key</h3>
+                        {
+                            this.state.persons.map((personObj) => {
+                                return <li key={personObj.id}>{personObj.name}---{personObj.age} <input type="text" /></li>
                             })
                         }
                     </div>
